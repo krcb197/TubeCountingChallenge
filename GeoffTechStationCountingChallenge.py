@@ -1,3 +1,8 @@
+"""
+This file implements a solution to the challenge of counting the number of 'nodes' on the tube map that are 'pure tube'
+set by Geoff Marshall see https://youtu.be/x9lpILZvBdU for more details
+"""
+
 import pandas as pd
 
 from TFL_API_Requests import cTFL_Line_Stoppoints_Request
@@ -144,13 +149,14 @@ class cGeoffTechStationCountingChallenge:
                   'hub': hub_list})
 
         # Geoff has some rules which are slightly different to the definitions used in the data:
-        # 1. the cable cars stops are unique nodes not part of their neightbouring underground
+
+        # 1. the cable cars stops are unique nodes not part of their neighbouring underground
         self.stop_point_dataframe.loc[self.stop_point_dataframe['stop_id'] == '940GZZALRDK','hub'] = ''
         self.stop_point_dataframe.loc[self.stop_point_dataframe['stop_id'] == '940GZZALGWP','hub'] = ''
         # 2. shadwell overgorund and DLR are not in a hub
         self.stop_point_dataframe.loc[self.stop_point_dataframe['stop_id'] == '940GZZDLSHA','hub'] = ''
         self.stop_point_dataframe.loc[self.stop_point_dataframe['stop_id'] == '910GSHADWEL','hub'] = ''
-        # 3. west croyden tram and overground are seperate stops
+        # 3. west croyden tram and overground are separate stops
         self.stop_point_dataframe.loc[self.stop_point_dataframe['stop_id'] == '910GWCROYDN','hub'] = ''
         self.stop_point_dataframe.loc[self.stop_point_dataframe['stop_id'] == '940GZZCRWCR','hub'] = ''
         # 4. paddington district is not part of the paddington hub
